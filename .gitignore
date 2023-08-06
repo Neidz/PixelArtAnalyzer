@@ -1,0 +1,15 @@
+# .NET Build Output
+bin
+obj/
+
+# NuGet Packages
+packages/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+
+# Build and publish directories
+publish/
+release/
