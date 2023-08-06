@@ -4,23 +4,13 @@ class Program
 {
     static void Main(string[] args)
     {
-        // image to look for targetImage in
-        string sourceImageLocation = "Resources/SampleImages/reversedCrewmate.png";
-        // image which should be found in sourceImage
+        // Image to look for targetImage in
+        string sourceImageLocation = "Resources/SampleImages/final_2023_place.png";
+        // Image which should be found in sourceImage
         string targetImageLocation = "Resources/SampleImages/crewmate.png";
 
-        ImageAnalyzer imageAnalyzer;
-        try
-        {
-            imageAnalyzer = new(sourceImageLocation, targetImageLocation);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Failed to load images" + e.Message);
-            return;
-        }
+        ImageAnalyzer imageAnalyzer = new(sourceImageLocation, targetImageLocation);
 
-        imageAnalyzer.LogDetails();
         imageAnalyzer.FindPattern();
 
     }

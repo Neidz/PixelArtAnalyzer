@@ -1,8 +1,9 @@
-namespace PixelArtAnalyzer.Image;
+namespace PixelArtAnalyzer.ImageColorUtils;
 
 class ImageColorUtils
 {
-    public static bool IsTheSameColor(Rgba32 pixel1, Rgba32 pixel2, int tolerance)
+    // T
+    public static bool AreColorsEqual(Rgba32 pixel1, Rgba32 pixel2, int tolerance)
     {
         int red1 = pixel1.R;
         int green1 = pixel1.G;
