@@ -1,9 +1,7 @@
-namespace PixelArtAnalyzer.ImagePatternMatcher;
+namespace PixelArtAnalyzer.Image;
 
 using SixLabors.ImageSharp;
 using System;
-using PixelArtAnalyzer.ImageColorUtils;
-using PixelArtAnalyzer.ImageProcessor;
 
 class ImagePatternMatcher
 {
@@ -27,9 +25,10 @@ class ImagePatternMatcher
 };
 
     // Searches for shape present in targetImage (marked using targetImageShapeColor) in sourceImage 
-    // with tolerance allowing color mismatch in every color by provided value
-    public void FindMatches(Image<Rgba32> sourceImage, Image<Rgba32> targetImage, Rgba32 targetImageShapeColor, int tolerance)
+    // with tolerance allowing color mismatch in every color by provided value, returns list of coordinates where shape was found
+    public List<List<int[]>> FindMatches(Image<Rgba32> sourceImage, Image<Rgba32> targetImage, Rgba32 targetImageShapeColor, int tolerance)
     {
+        List<List<int[]>> matches = new();
         var targetShapeCoordinates = ImageProcessor.ExtractTargetShapeCoordinates(targetImage, targetImageShapeColor, tolerance);
 
         int sourceImageWidth = sourceImage.Width;
@@ -41,6 +40,8 @@ class ImagePatternMatcher
         if (targetImageWidth > sourceImageWidth || targetImageHeight > sourceImageHeight)
         {
             Console.WriteLine("Can't match, target image is bigger than source image");
+
+            return matches;
         }
 
         // Using Sliding Window to find target shape in sourceImage 
@@ -50,10 +51,19 @@ class ImagePatternMatcher
             {
                 if (IsShapeInSlidingWindow(sourceImage, targetShapeCoordinates, offsetX, offsetY, tolerance))
                 {
-                    Console.WriteLine($"Found shape in window starting at {offsetX}, {offsetY}");
+                    List<int[]> coordinatesInWindow = new();
+
+                    foreach (int[] coordinate in targetShapeCoordinates)
+                    {
+                        coordinatesInWindow.Add(new int[] { coordinate[0] + offsetX, coordinate[1] + offsetY });
+                    }
+
+                    matches.Add(coordinatesInWindow);
                 }
             }
         }
+
+        return matches;
     }
 
     private bool IsShapeInSlidingWindow(Image<Rgba32> sourceImage, List<int[]> targetShapeCoordinates, int offsetX, int offsetY, int tolerance)

@@ -1,9 +1,8 @@
-namespace PixelArtAnalyzer.ImageProcessor;
+namespace PixelArtAnalyzer.Image;
 
 using SixLabors.ImageSharp;
-using PixelArtAnalyzer.ImageColorUtils;
 
-class ImageProcessor
+static class ImageProcessor
 {
     // Creates list of coordinates pointing to pixels that are considered as target and will be searched for, rest of the pixels are considered to be background
     public static List<int[]> ExtractTargetShapeCoordinates(Image<Rgba32> image, Rgba32 targetImageShapeColor, int tolerance)

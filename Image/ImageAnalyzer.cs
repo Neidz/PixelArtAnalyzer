@@ -1,7 +1,6 @@
 namespace PixelArtAnalyzer.Image;
 
 using SixLabors.ImageSharp;
-using PixelArtAnalyzer.ImagePatternMatcher;
 
 // Core class used for loading images, processing and searching for patterns
 class ImageAnalyzer
@@ -31,6 +30,8 @@ class ImageAnalyzer
     public void FindPattern()
     {
         ImagePatternMatcher imagePatternMatcher = new();
-        imagePatternMatcher.FindMatches(_sourceImage, _targetImage, _targetImageShapeColor, _tolerance);
+        var matches = imagePatternMatcher.FindMatches(_sourceImage, _targetImage, _targetImageShapeColor, _tolerance);
+
+        Console.WriteLine("Amount of found matches: " + matches.Count);
     }
 }
