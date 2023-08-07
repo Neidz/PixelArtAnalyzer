@@ -15,14 +15,12 @@ class ImageAnalyzer
     {
         try
         {
-            using FileStream sourceFileStream = File.Open(sourceImageLocation, FileMode.Open);
-            using FileStream targetFileStream = File.Open(targetImageLocation, FileMode.Open);
-            _sourceImage = Image.Load<Rgba32>(sourceFileStream);
-            _targetImage = Image.Load<Rgba32>(targetFileStream);
+            _sourceImage = ImageFileManager.LoadImage(sourceImageLocation);
+            _targetImage = Image.Load<Rgba32>(targetImageLocation);
         }
         catch (Exception e)
         {
-            Console.WriteLine("Failed to load images: " + e.Message);
+            Console.WriteLine(e.Message);
             Environment.Exit(1);
         }
     }
