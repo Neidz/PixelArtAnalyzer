@@ -11,6 +11,6 @@ class Program
 
         ImageAnalyzer imageAnalyzer = new(sourceImageLocation, targetImageLocation);
 
-        imageAnalyzer.FindPattern();
+        imageAnalyzer.FindPattern(true);
     }
 }

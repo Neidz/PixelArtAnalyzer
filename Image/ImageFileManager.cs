@@ -17,16 +17,30 @@ static class ImageFileManager
         }
     }
 
-    public static void SaveImage(Image<Rgba32> image, string fileName)
+    public static void SaveImage(Image<Rgba32> image, string fileName, string fileExtension = ".png")
     {
         string rootPath = Environment.CurrentDirectory;
-        string outputPath = Path.Combine(rootPath, "GeneratedImages", fileName);
 
-        if (!File.Exists(outputPath))
+        if (!Directory.Exists(Path.Combine(rootPath, "GeneratedImages")))
         {
             try
             {
-                image.Save(outputPath);
+                Directory.CreateDirectory(Path.Combine(rootPath, "GeneratedImages"));
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Failed to create directory GeneratedImages at the root of this project: " + e.Message);
+            }
+        }
+
+        string outputPath = Path.Combine(rootPath, "GeneratedImages", fileName);
+        string outputPathWithExtension = outputPath + fileExtension;
+
+        if (!File.Exists(outputPathWithExtension))
+        {
+            try
+            {
+                image.Save(outputPathWithExtension);
                 return;
             }
             catch (Exception e)
@@ -36,9 +50,10 @@ static class ImageFileManager
         }
 
         // If image with specified name already exists tries to save it adding number at the end of the name 
-        for (int i = 2; i < 7; i++)
+        for (int i = 2; i < 50; i++)
         {
-            string outputPathWithNumber = Path.Combine(outputPath, i.ToString());
+            string outputPathWithNumber = outputPath + i.ToString() + fileExtension;
+
             if (!File.Exists(outputPathWithNumber))
             {
                 try
@@ -52,5 +67,7 @@ static class ImageFileManager
                 }
             }
         }
+
+        throw new Exception("Failed to save image. Provide different name or delete existing images with this name");
     }
 }

@@ -13,3 +13,5 @@ packages/
 # Build and publish directories
 publish/
 release/
+
+GeneratedImages

@@ -11,6 +11,9 @@ class ImageAnalyzer
     private readonly Rgba32 _targetImageShapeColor = new(0, 0, 0, 0);
     private readonly int _tolerance = 1;
 
+    private readonly Rgba32 _visualisationShapeColor = new(255, 255, 255);
+    private readonly Rgba32 _visualisationBackgroundColor = new(0, 0, 0);
+
     public ImageAnalyzer(string sourceImageLocation, string targetImageLocation)
     {
         try
@@ -25,11 +28,18 @@ class ImageAnalyzer
         }
     }
 
-    public void FindPattern()
+    public void FindPattern(bool generatePreview = false)
     {
         ImagePatternMatcher imagePatternMatcher = new();
         var matches = imagePatternMatcher.FindMatches(_sourceImage, _targetImage, _targetImageShapeColor, _tolerance);
 
         Console.WriteLine("Amount of found matches: " + matches.Count);
+
+        if (generatePreview)
+        {
+            ImageVisualisation.CreateNewImageFromMatches(_sourceImage, matches, _visualisationShapeColor, _visualisationBackgroundColor);
+
+            Console.WriteLine("Generated image with preview of matches");
+        }
     }
 }

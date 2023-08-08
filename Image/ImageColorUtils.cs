@@ -20,4 +20,9 @@ static class ImageColorUtils
         return (redDiff <= tolerance) && (greenDiff <= tolerance) && (blue1Diff <= tolerance);
     }
 
+    public static Color ConvertRgbaToColor(Rgba32 rgbaColor)
+    {
+        return Color.FromRgba(rgbaColor.R, rgbaColor.G, rgbaColor.B, rgbaColor.A);
+    }
+
 }
