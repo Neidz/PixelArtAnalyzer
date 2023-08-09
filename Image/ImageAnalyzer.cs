@@ -39,7 +39,8 @@ class ImageAnalyzer
         if (generatePreview)
         {
             // ImageVisualisation.CreateNewImageFromMatches(_sourceImage, matches, _visualisationShapeColor, _visualisationBackgroundColor);
-            ImageVisualisation.CreateImageWithMarkedMatches(_sourceImage, matches, _visualisationBorderColor);
+            // ImageVisualisation.CreateImageWithMarkedMatches(_sourceImage, matches, _visualisationBorderColor);
+            ImageVisualisation.CreateImageWithMatchingPixelsColored(_sourceImage, matches, _visualisationBackgroundColor);
 
             Console.WriteLine("Generated image with preview of matches");
         }
