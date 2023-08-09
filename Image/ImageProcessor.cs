@@ -14,7 +14,7 @@ static class ImageProcessor
         {
             for (int x = 0; x < image.Width; x++)
             {
-                if (ImageColorUtils.AreColorsEqual(image[x, y], targetImageShapeColor, tolerance))
+                if (ImageUtils.AreColorsEqual(image[x, y], targetImageShapeColor, tolerance))
                 {
                     targetShapeCoordinates.Add(new int[] { x, y });
                 }

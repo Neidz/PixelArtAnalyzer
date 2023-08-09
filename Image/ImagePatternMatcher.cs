@@ -78,14 +78,14 @@ class ImagePatternMatcher
             int pixelXWithOffset = pixelCoordinates[0] + offsetX;
             int pixelYWithOffset = pixelCoordinates[1] + offsetY;
 
-            // Check if the pixel is outside the bounds of the sourceImage
+            // Checks if the pixel is outside the bounds of the sourceImage
             if (pixelXWithOffset < 0 || pixelXWithOffset >= sourceImage.Width || pixelYWithOffset < 0 || pixelYWithOffset >= sourceImage.Height)
             {
                 return false;
             }
 
-            // Check if the pixel is the same color as first pixel from the shape
-            if (!ImageColorUtils.AreColorsEqual(currentColor, sourceImage[pixelXWithOffset, pixelYWithOffset], tolerance))
+            // Checks if the pixel is the same color as first pixel from the shape
+            if (!ImageUtils.AreColorsEqual(currentColor, sourceImage[pixelXWithOffset, pixelYWithOffset], tolerance))
             {
                 return false;
             }
@@ -96,7 +96,7 @@ class ImagePatternMatcher
                 int surroundingX = pixelXWithOffset + surroundingOffset[0];
                 int surroundingY = pixelYWithOffset + surroundingOffset[1];
 
-                // Check if the pixel is outside the bounds of the sourceImage
+                // Checks if the pixel is outside the bounds of the sourceImage
                 if (surroundingX < 0 || surroundingX >= sourceImage.Width || surroundingY < 0 || surroundingY >= sourceImage.Height)
                 {
                     continue;
@@ -105,12 +105,13 @@ class ImagePatternMatcher
                 bool isPartOfTheShape = targetShapeCoordinates.Any(coordinate => coordinate.SequenceEqual(new int[] { surroundingX - offsetX, surroundingY - offsetY })
                 );
 
-                if (!isPartOfTheShape && ImageColorUtils.AreColorsEqual(currentColor, sourceImage[surroundingX, surroundingY], tolerance))
+                if (!isPartOfTheShape && ImageUtils.AreColorsEqual(currentColor, sourceImage[surroundingX, surroundingY], tolerance))
                 {
                     return false;
                 }
             }
         }
+
         return true;
     }
 }

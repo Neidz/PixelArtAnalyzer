@@ -11,8 +11,9 @@ class ImageAnalyzer
     private readonly Rgba32 _targetImageShapeColor = new(0, 0, 0, 0);
     private readonly int _tolerance = 1;
 
-    private readonly Rgba32 _visualisationShapeColor = new(255, 255, 255);
-    private readonly Rgba32 _visualisationBackgroundColor = new(0, 0, 0);
+    private readonly Rgba32 _visualisationShapeColor = Color.White;
+    private readonly Rgba32 _visualisationBackgroundColor = Color.Black;
+    private readonly Rgba32 _visualisationBorderColor = Color.Red;
 
     public ImageAnalyzer(string sourceImageLocation, string targetImageLocation)
     {
@@ -37,7 +38,8 @@ class ImageAnalyzer
 
         if (generatePreview)
         {
-            ImageVisualisation.CreateNewImageFromMatches(_sourceImage, matches, _visualisationShapeColor, _visualisationBackgroundColor);
+            // ImageVisualisation.CreateNewImageFromMatches(_sourceImage, matches, _visualisationShapeColor, _visualisationBackgroundColor);
+            ImageVisualisation.CreateImageWithMarkedMatches(_sourceImage, matches, _visualisationBorderColor);
 
             Console.WriteLine("Generated image with preview of matches");
         }
