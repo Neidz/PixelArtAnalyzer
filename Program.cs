@@ -1,4 +1,6 @@
 ﻿using PixelArtAnalyzer.Image;
+using PixelArtAnalyzer.ApplicationConfiguration;
+using PixelArtAnalyzer.CommandLineHandler;
 
 class Program
 {
@@ -9,8 +11,15 @@ class Program
         // Image which should be found in sourceImage
         string targetImageLocation = "Resources/SampleImages/crewmate.png";
 
-        ImageAnalyzer imageAnalyzer = new(sourceImageLocation, targetImageLocation);
+        ApplicationConfiguration configuration = new()
+        {
+            TargetImageLocation = targetImageLocation,
+            SourceImageLocation = sourceImageLocation
+        };
 
-        imageAnalyzer.FindPattern(true);
+        CommandLineHandler.ParseArgsToConfig(args, configuration);
+
+        ImageAnalyzer imageAnalyzer = new(configuration);
+        imageAnalyzer.FindPattern();
     }
 }

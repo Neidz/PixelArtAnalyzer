@@ -10,7 +10,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 static class ImageVisualisation
 {
     // Generates image that contains only pixels from matches
-    public static void CreateNewImageFromMatches(Image<Rgba32> sourceImage, List<List<int[]>> matches, Rgba32 shapeColor, Rgba32 backgroundColor)
+    public static void CreateNewBlankImageWithMatches(Image<Rgba32> sourceImage, List<List<int[]>> matches, Rgba32 shapeColor, Rgba32 backgroundColor)
     {
         int sourceImageWidth = sourceImage.Width;
         int sourceImageHeight = sourceImage.Height;

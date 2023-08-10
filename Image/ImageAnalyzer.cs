@@ -1,6 +1,7 @@
 namespace PixelArtAnalyzer.Image;
 
 using SixLabors.ImageSharp;
+using PixelArtAnalyzer.ApplicationConfiguration;
 
 // Core class used for loading images, processing and searching for patterns
 class ImageAnalyzer
@@ -8,19 +9,16 @@ class ImageAnalyzer
     private readonly Image<Rgba32> _sourceImage;
     private readonly Image<Rgba32> _targetImage;
 
-    private readonly Rgba32 _targetImageShapeColor = new(0, 0, 0, 0);
-    private readonly int _tolerance = 1;
+    private readonly ApplicationConfiguration _configuration;
 
-    private readonly Rgba32 _visualisationShapeColor = Color.White;
-    private readonly Rgba32 _visualisationBackgroundColor = Color.Black;
-    private readonly Rgba32 _visualisationBorderColor = Color.Red;
-
-    public ImageAnalyzer(string sourceImageLocation, string targetImageLocation)
+    public ImageAnalyzer(ApplicationConfiguration configuration)
     {
+        _configuration = configuration;
+
         try
         {
-            _sourceImage = ImageFileManager.LoadImage(sourceImageLocation);
-            _targetImage = Image.Load<Rgba32>(targetImageLocation);
+            _sourceImage = ImageFileManager.LoadImage(configuration.SourceImageLocation);
+            _targetImage = ImageFileManager.LoadImage(configuration.TargetImageLocation);
         }
         catch (Exception e)
         {
@@ -29,20 +27,30 @@ class ImageAnalyzer
         }
     }
 
-    public void FindPattern(bool generatePreview = false)
+    public void FindPattern()
     {
         ImagePatternMatcher imagePatternMatcher = new();
-        var matches = imagePatternMatcher.FindMatches(_sourceImage, _targetImage, _targetImageShapeColor, _tolerance);
+        var matches = imagePatternMatcher.FindMatches(_sourceImage, _targetImage, _configuration.TargetImageShapeColor, _configuration.Tolerance);
 
-        Console.WriteLine("Amount of found matches: " + matches.Count);
-
-        if (generatePreview)
+        if (_configuration.LogAmountOfMatches)
         {
-            // ImageVisualisation.CreateNewImageFromMatches(_sourceImage, matches, _visualisationShapeColor, _visualisationBackgroundColor);
-            // ImageVisualisation.CreateImageWithMarkedMatches(_sourceImage, matches, _visualisationBorderColor);
-            ImageVisualisation.CreateImageWithMatchingPixelsColored(_sourceImage, matches, _visualisationBackgroundColor);
+            Console.WriteLine("Amount of found matches: " + matches.Count);
+        }
 
-            Console.WriteLine("Generated image with preview of matches");
+
+        if (_configuration.GenerateImageWithMarkedMatches)
+        {
+            ImageVisualisation.CreateImageWithMarkedMatches(_sourceImage, matches, _configuration.VisualisationBorderColor);
+        }
+
+        if (_configuration.GenerateNewBlankImageWithMatches)
+        {
+            ImageVisualisation.CreateNewBlankImageWithMatches(_sourceImage, matches, _configuration.VisualisationShapeColor, _configuration.VisualisationBackgroundColor);
+        }
+
+        if (_configuration.GenerateImageWithMatchingPixelColored)
+        {
+            ImageVisualisation.CreateImageWithMatchingPixelsColored(_sourceImage, matches, _configuration.VisualisationBackgroundColor);
         }
     }
 }
