@@ -3,9 +3,9 @@ namespace PixelArtAnalyzer.CommandLineHandler;
 using System.Text.RegularExpressions;
 using SixLabors.ImageSharp;
 
-class CommandLineHandlerUtils
+public class CommandLineHandlerUtils
 {
-    private static Rgba32 TryParseRgba(string value)
+    public static Rgba32 TryParseRgba(string value)
     {
         Match matchWithAlpha = Regex.Match(value, @"\((\d+),(\d+),(\d+),(\d+)\)");
         Match matchWithoutAlpha = Regex.Match(value, @"\((\d+),(\d+),(\d+)\)");
@@ -28,7 +28,7 @@ class CommandLineHandlerUtils
         throw new ArgumentException("Failed to parse value as rgb/rgba: " + value);
     }
 
-    private static Rgba32 TryParseHex(string value)
+    public static Rgba32 TryParseHex(string value)
     {
         try
         {

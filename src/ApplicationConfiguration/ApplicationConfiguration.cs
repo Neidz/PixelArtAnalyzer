@@ -1,6 +1,6 @@
 namespace PixelArtAnalyzer.ApplicationConfiguration;
 
-class ApplicationConfiguration
+public class ApplicationConfiguration
 {
     public string? SourceImageLocation { get; set; }
     public string? TargetImageLocation { get; set; }

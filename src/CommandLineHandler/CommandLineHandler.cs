@@ -2,7 +2,7 @@ namespace PixelArtAnalyzer.CommandLineHandler;
 
 using PixelArtAnalyzer.ApplicationConfiguration;
 
-class CommandLineHandler
+public class CommandLineHandler
 {
     public static void ParseArgsToConfig(string[] args, ApplicationConfiguration configuration)
     {

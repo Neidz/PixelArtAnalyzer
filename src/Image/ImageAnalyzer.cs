@@ -4,7 +4,7 @@ using SixLabors.ImageSharp;
 using PixelArtAnalyzer.ApplicationConfiguration;
 
 // Core class used for loading images, processing and searching for patterns
-class ImageAnalyzer
+public class ImageAnalyzer
 {
     private readonly Image<Rgba32> _sourceImage;
     private readonly Image<Rgba32> _targetImage;
