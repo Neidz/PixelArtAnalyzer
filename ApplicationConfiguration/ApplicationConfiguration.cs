@@ -2,8 +2,8 @@ namespace PixelArtAnalyzer.ApplicationConfiguration;
 
 class ApplicationConfiguration
 {
-    public string SourceImageLocation { get; set; } = "";
-    public string TargetImageLocation { get; set; } = "";
+    public string? SourceImageLocation { get; set; }
+    public string? TargetImageLocation { get; set; }
 
     public int Tolerance { get; set; } = 1;
 
@@ -15,5 +15,5 @@ class ApplicationConfiguration
     public bool LogAmountOfMatches { get; set; } = true;
     public bool GenerateNewBlankImageWithMatches { get; set; } = false;
     public bool GenerateImageWithMarkedMatches { get; set; } = false;
-    public bool GenerateImageWithMatchingPixelColored { get; set; } = false;
+    public bool GenerateImageWithMatchingPixelsColored { get; set; } = false;
 }

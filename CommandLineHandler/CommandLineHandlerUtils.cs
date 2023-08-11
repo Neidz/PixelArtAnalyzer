@@ -1,6 +1,7 @@
 namespace PixelArtAnalyzer.CommandLineHandler;
 
 using System.Text.RegularExpressions;
+using SixLabors.ImageSharp;
 
 class CommandLineHandlerUtils
 {
@@ -24,6 +25,67 @@ class CommandLineHandlerUtils
         {
             return new Rgba32(r, g, b, 255);
         }
-        throw new ArgumentException("Invalid color format: " + value);
+        throw new ArgumentException("Failed to parse value as rgb/rgba: " + value);
+    }
+
+    private static Rgba32 TryParseHex(string value)
+    {
+        try
+        {
+            return Rgba32.ParseHex(value);
+        }
+        catch
+        {
+            throw new ArgumentException("Failed to parse value as hex: " + value);
+        }
+    }
+
+    public static Rgba32 ParseColorWithDefault(string value, string optionName, Rgba32 defaultValue)
+    {
+        try
+        {
+            if (Regex.IsMatch(value, @"^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$"))
+            {
+                return TryParseHex(value);
+            }
+            if (Regex.IsMatch(value, @"^(rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)|rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*(1|0?\.\d+)\s*\))$"))
+            {
+                return TryParseRgba(value);
+            }
+            throw new ArgumentException("Value doesn't match rgb/rgba or hex: " + value);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            Console.WriteLine($"Couldn't parse provided value for {optionName}, using default: {defaultValue}");
+            return defaultValue;
+        }
+    }
+    public static bool ParseBoolWithDefault(string value, string optionName, bool defaultValue)
+    {
+        try
+        {
+            return bool.Parse(value);
+        }
+        catch
+        {
+            Console.WriteLine($"Couldn't parse provided value for {optionName}, using default: {defaultValue}");
+            return defaultValue;
+        }
+
+    }
+
+    public static int ParseIntWithDefault(string value, string optionName, int defaultValue)
+    {
+        try
+        {
+            return int.Parse(value);
+        }
+        catch
+        {
+            Console.WriteLine($"Couldn't parse provided value for {optionName}, using default: {defaultValue}");
+            return defaultValue;
+        }
+
     }
 }

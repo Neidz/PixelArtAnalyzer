@@ -19,6 +19,17 @@ class Program
 
         CommandLineHandler.ParseArgsToConfig(args, configuration);
 
+        if (configuration.SourceImageLocation == null)
+        {
+            Console.WriteLine("Usage: Please provide the required parameter -sourceImageLocation. The program cannot continue without it.");
+            Environment.Exit(1);
+        }
+        if (configuration.TargetImageLocation == null)
+        {
+            Console.WriteLine("Usage: Please provide the required parameter -targetImageLocation. The program cannot continue without it.");
+            Environment.Exit(1);
+        }
+
         ImageAnalyzer imageAnalyzer = new(configuration);
         imageAnalyzer.FindPattern();
     }

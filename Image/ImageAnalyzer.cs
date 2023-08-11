@@ -48,7 +48,7 @@ class ImageAnalyzer
             ImageVisualisation.CreateNewBlankImageWithMatches(_sourceImage, matches, _configuration.VisualisationShapeColor, _configuration.VisualisationBackgroundColor);
         }
 
-        if (_configuration.GenerateImageWithMatchingPixelColored)
+        if (_configuration.GenerateImageWithMatchingPixelsColored)
         {
             ImageVisualisation.CreateImageWithMatchingPixelsColored(_sourceImage, matches, _configuration.VisualisationBackgroundColor);
         }
