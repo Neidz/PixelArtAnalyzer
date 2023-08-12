@@ -15,6 +15,17 @@ public class ImageAnalyzer
     {
         _configuration = configuration;
 
+        if (configuration.SourceImageLocation == null)
+        {
+            Console.WriteLine("Usage: Please provide the required parameter -sourceImageLocation. The program cannot continue without it.");
+            Environment.Exit(1);
+        }
+        if (configuration.TargetImageLocation == null)
+        {
+            Console.WriteLine("Usage: Please provide the required parameter -targetImageLocation. The program cannot continue without it.");
+            Environment.Exit(1);
+        }
+
         try
         {
             _sourceImage = ImageFileManager.LoadImage(configuration.SourceImageLocation);
