@@ -1,8 +1,7 @@
 name: publish
 
 on:
-    push:
-        branches: [master]
+    workflow_dispatch:
 
 jobs:
     build:
@@ -20,15 +19,12 @@ jobs:
             - name: Restore Dependencies
               run: dotnet restore src/PixelArtAnalyzer.csproj
 
-            # Build for Linux
             - name: Build Linux Deployment
               run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish/linux-x64 --no-restore --self-contained -r linux-x64
 
-            # Build for macOS
             - name: Build macOS Deployment
               run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish/osx-x64 --no-restore --self-contained -r osx-x64
 
-            # Build for Windows
             - name: Build Windows Deployment
               run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish/win-x64 --no-restore --self-contained -r win-x64
 
@@ -38,12 +34,14 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  tag_name: v1.0.0
-                  release_name: Release 1.0.0
+                  tag_name: v ${{ github.event.inputs.version }}
+                  release_name: Release ${{ github.event.inputs.version }}
                   draft: false
                   prerelease: false
 
-            # Upload Linux Release Asset
+            - name: Compress Linux Asset
+              run: tar -czf linux-x64.tar.gz -C ./publish/linux-x64 .
+
             - name: Upload Linux Asset
               id: upload_linux
               uses: actions/upload-release-asset@v1
@@ -51,11 +49,13 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./publish/linux-x64
-                  asset_name: PixelArtAnalyzer-linux-x64
-                  asset_content_type: application/octet-stream
+                  asset_path: ./linux-x64.tar.gz
+                  asset_name: PixelArtAnalyzer-linux-x64.tar.gz
+                  asset_content_type: application/gzip
 
-            # Upload macOS Release Asset
+            - name: Compress macOS Asset
+              run: tar -czf osx-x64.tar.gz -C ./publish/osx-x64 .
+
             - name: Upload macOS Asset
               id: upload_macos
               uses: actions/upload-release-asset@v1
@@ -63,11 +63,13 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./publish/osx-x64
-                  asset_name: PixelArtAnalyzer-osx-x64
-                  asset_content_type: application/octet-stream
+                  asset_path: ./osx-x64.tar.gz
+                  asset_name: PixelArtAnalyzer-osx-x64.tar.gz
+                  asset_content_type: application/gzip
 
-            # Upload Windows Release Asset
+            - name: Compress Windows Asset
+              run: zip -r win-x64.zip ./publish/win-x64/*
+
             - name: Upload Windows Asset
               id: upload_windows
               uses: actions/upload-release-asset@v1
@@ -75,6 +77,6 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./publish/win-x64
-                  asset_name: PixelArtAnalyzer-win-x64.exe
-                  asset_content_type: application/octet-stream
+                  asset_path: ./win-x64.zip
+                  asset_name: PixelArtAnalyzer-win-x64.zip
+                  asset_content_type: application/zip
