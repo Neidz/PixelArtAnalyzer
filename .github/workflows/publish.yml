@@ -26,14 +26,11 @@ jobs:
             - name: Publish Artifact
               run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish --no-restore
 
-            - name: Debug Output
-              run: echo "ACTIONS_TOKEN ${{secrets.ACTIONS_TOKEN}}"
-
             - name: Create Release
               id: create_release
               uses: actions/create-release@v1
               env:
-                  GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   tag_name: v1.0.0
                   release_name: Release 1.0.0
@@ -44,7 +41,7 @@ jobs:
               id: upload-release-asset
               uses: actions/upload-release-asset@v1
               env:
-                  GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
                   asset_path: ./publish/PixelArtAnalyzer
