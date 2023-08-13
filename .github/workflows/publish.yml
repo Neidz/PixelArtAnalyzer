@@ -20,11 +20,17 @@ jobs:
             - name: Restore Dependencies
               run: dotnet restore src/PixelArtAnalyzer.csproj
 
-            - name: Build Project
-              run: dotnet build src/PixelArtAnalyzer.csproj --configuration Release --no-restore
+            # Build for Linux
+            - name: Build Linux Deployment
+              run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish/linux-x64 --no-restore -r linux-x64
 
-            - name: Publish Artifact
-              run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish --no-restore
+            # Build for macOS
+            - name: Build macOS Deployment
+              run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish/osx-x64 --no-restore -r osx-x64
+
+            # Build for Windows
+            - name: Build Windows Deployment
+              run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish/win-x64 --no-restore -r win-x64
 
             - name: Create Release
               id: create_release
@@ -37,13 +43,38 @@ jobs:
                   draft: false
                   prerelease: false
 
-            - name: Upload Release Asset
-              id: upload-release-asset
+            # Upload Linux Release Asset
+            - name: Upload Linux Asset
+              id: upload_linux
               uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./publish/PixelArtAnalyzer
-                  asset_name: PixelArtAnalyzer
+                  asset_path: ./publish/linux-x64/PixelArtAnalyzer
+                  asset_name: PixelArtAnalyzer-linux-x64
+                  asset_content_type: application/octet-stream
+
+            # Upload macOS Release Asset
+            - name: Upload macOS Asset
+              id: upload_macos
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./publish/osx-x64/PixelArtAnalyzer
+                  asset_name: PixelArtAnalyzer-osx-x64
+                  asset_content_type: application/octet-stream
+
+            # Upload Windows Release Asset
+            - name: Upload Windows Asset
+              id: upload_windows
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./publish/win-x64/PixelArtAnalyzer.exe
+                  asset_name: PixelArtAnalyzer-win-x64.exe
                   asset_content_type: application/octet-stream
