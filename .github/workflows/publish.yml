@@ -26,6 +26,9 @@ jobs:
             - name: Publish Artifact
               run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish --no-restore
 
+            - name: Debug Output
+              run: echo "ACTIONS_TOKEN ${{secrets.ACTIONS_TOKEN}}"
+
             - name: Create Release
               id: create_release
               uses: actions/create-release@v1
