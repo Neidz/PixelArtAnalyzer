@@ -1,6 +1,6 @@
 namespace PixelArtAnalyzer.Image;
 
-static class ImageUtils
+public static class ImageUtils
 {
     // T
     public static bool AreColorsEqual(Rgba32 pixel1, Rgba32 pixel2, int tolerance)
