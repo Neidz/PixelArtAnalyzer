@@ -1,0 +1,49 @@
+name: publish
+
+on:
+    push:
+        branches: [master]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
+            - name: Set up .Net Core
+              uses: actions/setup-dotnet@v3
+              with:
+                  dotnet-version: "7.0"
+
+            - name: Restore Dependencies
+              run: dotnet restore src/PixelArtAnalyzer.csproj
+
+            - name: Build Project
+              run: dotnet build src/PixelArtAnalyzer.csproj --configuration Release --no-restore
+
+            - name: Publish Artifact
+              run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish --no-restore
+
+            - name: Create Release
+              id: create_release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag_name: v1.0.0
+                  release_name: Release 1.0.0
+                  draft: false
+                  prerelease: false
+
+            - name: Upload Release Asset
+              id: upload-release-asset
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./publish/PixelArtAnalyzer
+                  asset_name: PixelArtAnalyzer
+                  asset_content_type: application/octet-stream
