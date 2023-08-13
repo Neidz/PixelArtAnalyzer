@@ -2,6 +2,11 @@ name: publish
 
 on:
     workflow_dispatch:
+        inputs:
+            name:
+                type: string
+                description: Version
+                default: 1.0.0
 
 jobs:
     build:
@@ -34,8 +39,8 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  tag_name: v ${{ github.event.inputs.version }}
-                  release_name: Release ${{ github.event.inputs.version }}
+                  tag_name: v ${{ inputs.version }}
+                  release_name: Release ${{ inputs.version }}
                   draft: false
                   prerelease: false
 
