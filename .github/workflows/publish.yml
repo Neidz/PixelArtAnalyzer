@@ -22,15 +22,15 @@ jobs:
 
             # Build for Linux
             - name: Build Linux Deployment
-              run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish/linux-x64 --no-restore -r linux-x64
+              run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish/linux-x64 --no-restore --self-contained -r linux-x64
 
             # Build for macOS
             - name: Build macOS Deployment
-              run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish/osx-x64 --no-restore -r osx-x64
+              run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish/osx-x64 --no-restore --self-contained -r osx-x64
 
             # Build for Windows
             - name: Build Windows Deployment
-              run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish/win-x64 --no-restore -r win-x64
+              run: dotnet publish src/PixelArtAnalyzer.csproj --configuration Release --output ./publish/win-x64 --no-restore --self-contained -r win-x64
 
             - name: Create Release
               id: create_release
