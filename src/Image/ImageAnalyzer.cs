@@ -51,17 +51,17 @@ public class ImageAnalyzer
 
         if (_configuration.GenerateImageWithMarkedMatches)
         {
-            ImageVisualisation.CreateImageWithMarkedMatches(_sourceImage, matches, _configuration.VisualisationBorderColor);
+            ImageVisualization.CreateImageWithMarkedMatches(_sourceImage, matches, _configuration.VisualizationBorderColor);
         }
 
         if (_configuration.GenerateNewBlankImageWithMatches)
         {
-            ImageVisualisation.CreateNewBlankImageWithMatches(_sourceImage, matches, _configuration.VisualisationShapeColor, _configuration.VisualisationBackgroundColor);
+            ImageVisualization.CreateNewBlankImageWithMatches(_sourceImage, matches, _configuration.VisualizationShapeColor, _configuration.VisualizationBackgroundColor);
         }
 
         if (_configuration.GenerateImageWithMatchingPixelsColored)
         {
-            ImageVisualisation.CreateImageWithMatchingPixelsColored(_sourceImage, matches, _configuration.VisualisationBackgroundColor);
+            ImageVisualization.CreateImageWithMatchingPixelsColored(_sourceImage, matches, _configuration.VisualizationBackgroundColor);
         }
     }
 }

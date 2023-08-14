@@ -13,7 +13,7 @@ public class CommandLineHandlerUtilsTests
         [Fact]
         public void CorrectlyParsesRgba()
         {
-            string validValue = "rgba(100,150,200,255)";
+            string validValue = "rgba(100, 150, 200, 255)";
 
             Rgba32 result = CommandLineHandlerUtils.TryParseRgba(validValue);
 
@@ -26,7 +26,7 @@ public class CommandLineHandlerUtilsTests
         [Fact]
         public void CorrectlyParsesRgb()
         {
-            string validValue = "rgb(200,100,200)";
+            string validValue = "rgb(200, 100, 200)";
 
             Rgba32 result = CommandLineHandlerUtils.TryParseRgba(validValue);
 

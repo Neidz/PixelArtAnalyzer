@@ -19,18 +19,19 @@ public class ImageUtilsTests
         {
             bool result = ImageUtils.AreColorsEqual(color1, color2, 0);
 
-            Assert.Equal(result, false);
+            Assert.False(result);
         }
 
+        [Fact]
         public void CorrectlyComparesColorsWithTolerance()
         {
             bool result1 = ImageUtils.AreColorsEqual(color1, color1, 0);
             bool result2 = ImageUtils.AreColorsEqual(color1, color2, 1);
             bool result3 = ImageUtils.AreColorsEqual(color1, color3, 5);
 
-            Assert.Equal(result1, true);
-            Assert.Equal(result2, true);
-            Assert.Equal(result3, true);
+            Assert.True(result1);
+            Assert.True(result2);
+            Assert.True(result3);
         }
     }
 

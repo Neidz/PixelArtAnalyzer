@@ -7,8 +7,8 @@ public class CommandLineHandlerUtils
 {
     public static Rgba32 TryParseRgba(string value)
     {
-        Match matchWithAlpha = Regex.Match(value, @"\((\d+),(\d+),(\d+),(\d+)\)");
-        Match matchWithoutAlpha = Regex.Match(value, @"\((\d+),(\d+),(\d+)\)");
+        Match matchWithAlpha = Regex.Match(value, @"rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)");
+        Match matchWithoutAlpha = Regex.Match(value, @"rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)");
 
         if (matchWithAlpha.Success &&
             byte.TryParse(matchWithAlpha.Groups[1].Value, out byte r) &&
@@ -48,7 +48,7 @@ public class CommandLineHandlerUtils
             {
                 return TryParseHex(value);
             }
-            if (Regex.IsMatch(value, @"^(rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)|rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*(1|0?\.\d+)\s*\))$"))
+            if (Regex.IsMatch(value, @"^(rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)|rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\))$"))
             {
                 return TryParseRgba(value);
             }

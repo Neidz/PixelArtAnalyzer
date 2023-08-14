@@ -29,14 +29,14 @@ public class CommandLineHandler
                     case "-targetImageShapeColor":
                         configuration.TargetImageShapeColor = CommandLineHandlerUtils.ParseColorWithDefault(value, "-targetImageShapeColor", configuration.TargetImageShapeColor);
                         break;
-                    case "-visualisationShapeColor":
-                        configuration.VisualisationShapeColor = CommandLineHandlerUtils.ParseColorWithDefault(value, "-visualisationShapeColor", configuration.VisualisationShapeColor);
+                    case "-visualizationShapeColor":
+                        configuration.VisualizationShapeColor = CommandLineHandlerUtils.ParseColorWithDefault(value, "-visualizationShapeColor", configuration.VisualizationShapeColor);
                         break;
-                    case "-visualisationBackgroundColor":
-                        configuration.VisualisationBackgroundColor = CommandLineHandlerUtils.ParseColorWithDefault(value, "-visualisationBackgroundColor", configuration.VisualisationBackgroundColor);
+                    case "-visualizationBackgroundColor":
+                        configuration.VisualizationBackgroundColor = CommandLineHandlerUtils.ParseColorWithDefault(value, "-visualizationBackgroundColor", configuration.VisualizationBackgroundColor);
                         break;
-                    case "-visualisationBorderColor":
-                        configuration.VisualisationBorderColor = CommandLineHandlerUtils.ParseColorWithDefault(value, "-visualisationBorderColor", configuration.VisualisationBorderColor);
+                    case "-visualizationBorderColor":
+                        configuration.VisualizationBorderColor = CommandLineHandlerUtils.ParseColorWithDefault(value, "-visualizationBorderColor", configuration.VisualizationBorderColor);
                         break;
 
                     case "-logAmountOfMatches":

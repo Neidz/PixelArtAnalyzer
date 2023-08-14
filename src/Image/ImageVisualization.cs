@@ -7,7 +7,7 @@ using SixLabors.ImageSharp.Drawing;
 using SixLabors.ImageSharp.Drawing.Processing;
 
 
-static class ImageVisualisation
+static class ImageVisualization
 {
     // Generates image that contains only pixels from matches
     public static void CreateNewBlankImageWithMatches(Image<Rgba32> sourceImage, List<List<int[]>> matches, Rgba32 shapeColor, Rgba32 backgroundColor)
@@ -27,7 +27,7 @@ static class ImageVisualisation
             }
         }
 
-        ImageFileManager.SaveImage(newImage, "BlankVisualisationWithMatches");
+        ImageFileManager.SaveImage(newImage, "BlankVisualizationWithMatches");
     }
 
     // Generates image where matches are replaced with chosen color
@@ -43,7 +43,7 @@ static class ImageVisualisation
             }
         }
 
-        ImageFileManager.SaveImage(newImage, "VisualisationWithColoredMatches");
+        ImageFileManager.SaveImage(newImage, "VisualizationWithColoredMatches");
     }
 
     // Generates image with border around matches
@@ -69,6 +69,6 @@ static class ImageVisualisation
             newImage.Mutate(ctx => ctx.Draw(pen, rectangle));
         }
 
-        ImageFileManager.SaveImage(newImage, "VisualisationWithMarkedMatches");
+        ImageFileManager.SaveImage(newImage, "VisualizationWithMarkedMatches");
     }
 }
