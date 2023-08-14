@@ -58,19 +58,31 @@ Color values can be rgb e.g. `rgb(255,255,255)`, rgba r.g. `rgba(200,200,200,255
 As you can see in visualization methods examples there are some targets that look similar to target image but if you look closely they have at least one pixel of the same color next to them, not full shape or different orientation
 
 # Visualization methods
-- target image (not a method) <br>
+- target image (not a method)
+  
 ![target image](Resources/VisualizationMethodsReadme/Source/Target.png)
-- source image for comparing (not a method) <br>
+- source image for comparing (not a method)
+  
 ![source image](Resources/VisualizationMethodsReadme/Source/Final2023Place.png)
-- generateNewBlankImageWithMatches method <br>
+
+- generateNewBlankImageWithMatches method
+  
 ![generateNewBlankImageWithMatches method image](Resources/VisualizationMethodsReadme/Outputs/BlankVisualizationWithMatches.png)
-- generateImageWithMatchingPixelsColored method <br>
+
+- generateImageWithMatchingPixelsColored method
+  
 ![generateImageWithMatchingPixelsColored method image](Resources/VisualizationMethodsReadme/Outputs/VisualizationWithMatchingPixelsColored.png)
-- generateImageWithMarkedMatches method <br>
+
+- generateImageWithMarkedMatches method
+  
 ![generateImageWithMarkedMatches method image](Resources/VisualizationMethodsReadme/Outputs/VisualizationWithMarkedMatches.png)
 
-It might be hard to see on images this large, so here zoomed parts of images provided before but zoomed, in the same order  <br>
+It might be hard to see on images this large, so here are zoomed parts of images provided before, in the same order  <br>
+
 ![source image zoomed](Resources/VisualizationMethodsReadme/Source/Final2023PlaceZoomed.png)
+
 ![generateNewBlankImageWithMatches method image zoomed](Resources/VisualizationMethodsReadme/Outputs/BlankVisualizationWithMatchesZoomed.png)
+
 ![generateImageWithMatchingPixelsColored method image zoomed](Resources/VisualizationMethodsReadme/Outputs/VisualizationWithMatchingPixelsColoredZoomed.png)
+
 ![generateImageWithMarkedMatches method image zoomed](Resources/VisualizationMethodsReadme/Outputs/VisualizationWithMarkedMatchesZoomed.png)
